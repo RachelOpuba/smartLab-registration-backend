@@ -1,9 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 const app = express();
 const PORT =  5000
 const Student = require("./models/studentSchema");
+
+// Use CORS middleware
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -13,7 +17,7 @@ app.get("/", (req, res) => {
 });
 
  
-app.post("/api/students", async (req, res) => {
+app.post("/api/student", async (req, res) => {
   try {
     
     const student = await Student.create(req.body);
@@ -23,6 +27,20 @@ app.post("/api/students", async (req, res) => {
   }
 });
 
+
+app.post("/api/check-email", async (req, res) => {
+  try {
+    const { email } = req.body;
+    const student = await Student.findOne({ email });
+    if (student) {
+      return res.status(200).json({ exists: true, message: "Email already registered" });
+    }
+    res.status(200).json({ exists: false, message: "Email not registered" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+ 
 app.get("/api/students", async (req, res) => {
   try {
     const students = await Student.find(res.body);
