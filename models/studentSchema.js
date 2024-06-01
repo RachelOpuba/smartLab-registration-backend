@@ -47,6 +47,10 @@ const StudentSchema = mongoose.Schema(
         type: String,
         required: true,
       },
+      couponCode: {
+        type: String,
+       
+      },
     },
   
     {
