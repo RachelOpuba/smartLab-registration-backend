@@ -43,7 +43,7 @@ app.post("/api/student", async (req, res) => {
 
         Thank you for registering for the ${planName} plan.
 
-        We have received your payment and your registration is confirmed.
+        We have received your details and your registration is confirmed.
 
         Your unique coupon code is: ${couponCode}
 
@@ -143,15 +143,15 @@ app.post('/api/send-email', (req, res) => {
     subject: 'Registration Confirmation',
     text: `Hello ${firstName} ${lastName},
 
-Thank you for registering for the ${planName} plan.
+    Thank you for registering for the ${planName} plan.
 
-We have received your payment and your registration is confirmed.
+    We have received your payment and your registration is confirmed.
 
-Your unique coupon code is: ${couponCode}
+    Your unique coupon code is: ${couponCode}
 
-Best regards,
-SmartLab`
-  };
+    Best regards,
+    SmartLab`
+      };
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
